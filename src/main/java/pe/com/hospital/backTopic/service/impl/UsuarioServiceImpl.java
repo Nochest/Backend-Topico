@@ -48,4 +48,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuarioRepository.deleteAll();
 	}
 
+	@Override
+	public Optional<Usuario> login(String correo, String password) throws Exception {
+		return usuarioRepository.login(correo, password);
+	}
+
 }

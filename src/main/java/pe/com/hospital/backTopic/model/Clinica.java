@@ -33,6 +33,14 @@ public class Clinica {
 	@OneToMany(mappedBy = "clinica", fetch = FetchType.LAZY)
 	private List<SeguroClinica> seguroClinicas;
 
+	public List<SeguroClinica> getSeguroClinicas() {
+		return seguroClinicas;
+	}
+
+	public void setSeguroClinicas(List<SeguroClinica> seguroClinicas) {
+		this.seguroClinicas = seguroClinicas;
+	}
+
 	public Clinica() {
 		this.ubicaciones = new ArrayList<>();
 		this.seguroClinicas = new ArrayList<>();

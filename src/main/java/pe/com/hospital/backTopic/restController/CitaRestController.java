@@ -21,13 +21,14 @@ import io.swagger.annotations.ApiOperation;
 import pe.com.hospital.backTopic.model.Cita;
 import pe.com.hospital.backTopic.service.CitaService;
 
+
 @Api(value = "Endpoints de Cita")
 @RestController
 @RequestMapping("api/citas")
 public class CitaRestController {
 	@Autowired
 	private CitaService citaService;
-
+	
 	@ApiOperation(value = "EndPoint que permite listar las citas")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Cita>> Listar() {
@@ -116,4 +117,31 @@ public class CitaRestController {
 		}
 		return null;
 	}
+	/*
+	@ApiOperation(value = "EndPoint que permite obtener citas disponibles por parametros")
+	@GetMapping(path = "/CITAWITHPARAMS", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Cita>> getCitaWithParams(
+			@RequestParam(value = "nombreSeguro") String nombreSeguro, 
+			@RequestParam(value = "nombreEspecialidad") String nombreEspecialidad,
+			@RequestParam(value = "nombreLugar") String nombreLugar,
+			@RequestParam(value = "hora") Date hora){
+		ResponseEntity<List<Cita>> response;
+		try {  
+			if(ubicacionService.getClinica().getNombre() == nombreLugar &&
+				citaP.getFecha() == hora && 
+				especialidad.getNombre() == nombreEspecialidad && 
+				seguro.getNombre() == nombreSeguro) {
+				List<Cita> citasHabiles = citaService.findByLugarSeguroEspecialidadHora(nombreSeguro, nombreEspecialidad, nombreLugar, hora);
+				response = new ResponseEntity<List<Cita>>(citasHabiles, HttpStatus.OK);
+				return response;
+			}
+			else {
+				return new ResponseEntity<List<Cita>>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return null;
+	}*/
 }

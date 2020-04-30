@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -56,6 +57,22 @@ public class UsuarioRestController {
 		}
 	}
 
+	@ApiOperation(value = "EndPoint que permite obtener correo y password")
+	@GetMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Usuario> login(@RequestParam(value = "correo") String correo, @RequestParam(value = "password") String password) {
+		try {
+			Optional<Usuario> login = usuarioService.login(correo, password);
+			if (login.isPresent()) {
+				return new ResponseEntity<Usuario>(login.get(), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	
 	@ApiOperation(value = "EndPoint que permite grabar un usuario")
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> nuevo(@RequestBody Usuario usuario) {

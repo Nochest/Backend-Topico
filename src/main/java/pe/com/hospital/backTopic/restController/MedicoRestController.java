@@ -84,6 +84,32 @@ public class MedicoRestController {
 		}
 	}
 	
+	@ApiOperation(value = "EndPoint que permite obtener medico o medicos por su apellido materno")
+	@GetMapping(path = "/{apellidoMaterno}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Medico>> getApellidoMMedico(@RequestParam(value = "apellidoMaterno") String apellidoMaterno){
+		ResponseEntity<List<Medico>> response;
+		try {
+			List<Medico> medicos = medicoService.fetchByApellidoMaterno(apellidoMaterno);
+			response = new  ResponseEntity<List<Medico>>(medicos, HttpStatus.OK);
+			return response;
+		} catch (Exception e) {
+			return new ResponseEntity<List<Medico>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@ApiOperation(value = "EndPoint que permite obtener medico o medicos NOMBRE COMPLETO")
+	@GetMapping(path = "/fullName", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Medico>> getCompleto(@RequestParam(value = "apellidoMaterno") String apellidoMaterno, 
+			@RequestParam(value = "apellido Paterno") String apellidoPaterno, @RequestParam(value = "nombre") String nombre){
+		ResponseEntity<List<Medico>> response;
+		try {
+			List<Medico> medicos = medicoService.fetchByNombreCompleto(nombre, apellidoPaterno, apellidoMaterno);
+			response = new  ResponseEntity<List<Medico>>(medicos, HttpStatus.OK);
+			return response;
+		} catch (Exception e) {
+			return new ResponseEntity<List<Medico>>(HttpStatus.BAD_REQUEST);
+		}
+	}
 	@ApiOperation(value = "EndPoint que permite grabar un medico")
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Medico> nuevo(@RequestBody Medico medico) {

@@ -58,4 +58,14 @@ public class MedicoServiceImpl implements MedicoService {
 		return medicoRepository.fetchByApellidoPaterno(apellidoPaterno);
 	}
 
+	@Override
+	public List<Medico> fetchByApellidoMaterno(String apellidoMaterno) throws Exception {
+		return medicoRepository.fetchByApellidoMaterno(apellidoMaterno);
+	}
+
+	@Override
+	public List<Medico> fetchByNombreCompleto(String nombre, String apellidoPaterno, String apellidoMaterno)throws Exception {
+		return medicoRepository.fetchByNombreCompleto(nombre, apellidoPaterno, apellidoMaterno);
+	}
+
 }
