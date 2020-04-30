@@ -1,5 +1,6 @@
 package pe.com.hospital.backTopic.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +52,11 @@ public class CitaServiceImpl implements CitaService {
 	@Override
 	public List<Cita> fetchByCitasDisponibles() throws Exception {
 		return citaRepository.fetchByCitasDisponibles();
+	}
+
+	@Override
+	public Optional<Cita> citaIdeal(Date fecha) throws Exception {
+		return citaRepository.citaIdeal(fecha);
 	}
 
 	/*@Override

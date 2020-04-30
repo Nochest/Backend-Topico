@@ -1,6 +1,8 @@
 package pe.com.hospital.backTopic.repository;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +15,6 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
 	@Query("select ci from Cita ci where ci.reserva = 1")
 	List<Cita> fetchByCitasDisponibles() throws Exception;
 	//List<Cita> findByLugarSeguroEspecialidadHora(String nombreSeguro, String nombreEspecialidad, String nombreLugar, Date hora) throws Exception;
+	@Query("select ci from Cita ci where ci.fecha = :fecha")
+	Optional<Cita> citaIdeal(Date fecha) throws Exception;
 }

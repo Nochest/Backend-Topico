@@ -1,9 +1,11 @@
 package pe.com.hospital.backTopic.restController;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -144,4 +147,20 @@ public class CitaRestController {
 		
 		return null;
 	}*/
+	@ApiOperation(value = "EndPoint que permite obtener una cita por su fecha")
+	@GetMapping(path = "/citaIdeal", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Cita> CitaIdeal(@RequestParam(value = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha ) {
+		try {
+			Optional<Cita> cita = citaService.citaIdeal(fecha);
+			
+			if (cita.isPresent()) {
+				return new ResponseEntity<Cita>(cita.get(), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Cita>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<Cita>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
 }

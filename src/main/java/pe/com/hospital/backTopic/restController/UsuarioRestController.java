@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import pe.com.hospital.backTopic.model.Paciente;
 import pe.com.hospital.backTopic.model.Usuario;
+import pe.com.hospital.backTopic.service.PacienteService;
 import pe.com.hospital.backTopic.service.UsuarioService;
 
 @Api(value = "Endpoints de Usuario")
@@ -28,6 +30,9 @@ import pe.com.hospital.backTopic.service.UsuarioService;
 public class UsuarioRestController {
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private PacienteService pacienteService;
 	
 	@GetMapping
 	public ResponseEntity<List<Usuario>> Listar() {
@@ -83,7 +88,23 @@ public class UsuarioRestController {
 			return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
 		}
 	}
-
+	@ApiOperation(value = "EndPoint que permite grabar un paciente en un usuario, donde id es el identificador dl usuario" )
+	@PostMapping(path = "/{id}/paciente", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Paciente> nuevoPaciente(@PathVariable("id") Integer id, @RequestBody Paciente paciente){
+		try {
+			Optional<Usuario> us = usuarioService.findById(id);
+			if(us.isPresent()) {
+				paciente.setUsuario(us.get());
+				Paciente nuevo = pacienteService.save(paciente);
+				return new ResponseEntity<Paciente>(nuevo, HttpStatus.CREATED);
+			}
+			else {
+				return new ResponseEntity<Paciente>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<Paciente>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	@ApiOperation(value = "EndPoint que permite actualizar un usuario")
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> actualizar(@PathVariable("id") Integer id, @RequestBody Usuario usuario) {
