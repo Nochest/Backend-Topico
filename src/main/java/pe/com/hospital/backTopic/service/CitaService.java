@@ -9,5 +9,5 @@ import pe.com.hospital.backTopic.model.Cita;
 public interface CitaService extends CrudService<Cita, Integer> {
 	List<Cita> fetchByCitasDisponibles() throws Exception;
 	//List<Cita> findByLugarSeguroEspecialidadHora(String nombreSeguro, String nombreEspecialidad, String nombreLugar, Date hora) throws Exception;
-	Optional<Cita> citaIdeal(Date fecha) throws Exception;
+	Optional<Cita> citaIdeal(Date fecha, String Distrito, String especialidad, String seguro) throws Exception;
 }

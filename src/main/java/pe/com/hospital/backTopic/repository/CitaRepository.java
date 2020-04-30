@@ -15,6 +15,7 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
 	@Query("select ci from Cita ci where ci.reserva = 1")
 	List<Cita> fetchByCitasDisponibles() throws Exception;
 	//List<Cita> findByLugarSeguroEspecialidadHora(String nombreSeguro, String nombreEspecialidad, String nombreLugar, Date hora) throws Exception;
-	@Query("select ci from Cita ci where ci.fecha = :fecha")
-	Optional<Cita> citaIdeal(Date fecha) throws Exception;
+	
+	@Query("select ci from Cita ci, Especialidad esp, Seguro se where ci.fecha = :fecha and ci.ubicacion.distrito = :distrito and esp.nombre = :especialidad and se.nombre = :seguro")
+	Optional<Cita> citaIdeal(Date fecha, String distrito, String especialidad, String seguro) throws Exception;
 }

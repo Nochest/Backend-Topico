@@ -149,9 +149,12 @@ public class CitaRestController {
 	}*/
 	@ApiOperation(value = "EndPoint que permite obtener una cita por su fecha")
 	@GetMapping(path = "/citaIdeal", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Cita> CitaIdeal(@RequestParam(value = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha ) {
+	public ResponseEntity<Cita> CitaIdeal(@RequestParam(value = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, 
+			@RequestParam(value ="distrito") String distrito, 
+			@RequestParam(value = "especialidad") String especialidad, 
+			@RequestParam(value = "seguro") String seguro) {
 		try {
-			Optional<Cita> cita = citaService.citaIdeal(fecha);
+			Optional<Cita> cita = citaService.citaIdeal(fecha, distrito, especialidad, seguro);
 			
 			if (cita.isPresent()) {
 				return new ResponseEntity<Cita>(cita.get(), HttpStatus.OK);
