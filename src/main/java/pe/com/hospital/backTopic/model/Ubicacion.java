@@ -32,7 +32,7 @@ public class Ubicacion {
 	@Lob
 	@Column(name = "imagen")
 	private byte[] img;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "clinica_id")
 	private Clinica clinica;
@@ -86,6 +86,14 @@ public class Ubicacion {
 
 	public void setCitas(List<Cita> citas) {
 		this.citas = citas;
+	}
+	
+	public byte[] getImg() {
+		return img;
+	}
+
+	public void setImg(byte[] img) {
+		this.img = img;
 	}
 
 }

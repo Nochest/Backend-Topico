@@ -158,7 +158,7 @@ public class CitaRestController {
 			return new ResponseEntity<List<Cita>>(citas, HttpStatus.OK);	
 		} catch (Exception e) {
 			return new ResponseEntity<List<Cita>>(HttpStatus.BAD_REQUEST);
-		}
+		}	
 	}
 
 }

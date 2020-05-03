@@ -57,4 +57,12 @@ public class Especialidad {
 	public void setMedicoEspecialidades(List<MedicoEspecialidad> medicoEspecialidades) {
 		this.medicoEspecialidades = medicoEspecialidades;
 	}
+
+	public byte[] getImg() {
+		return img;
+	}
+
+	public void setImg(byte[] img) {
+		this.img = img;
+	}
 }
