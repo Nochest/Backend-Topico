@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,6 +29,10 @@ public class Ubicacion {
 	@Column(name = "latitud", length = 30, nullable = false)
 	private String latitud;
 
+	@Lob
+	@Column(name = "imagen")
+	private byte[] img;
+	
 	@ManyToOne
 	@JoinColumn(name = "clinica_id")
 	private Clinica clinica;

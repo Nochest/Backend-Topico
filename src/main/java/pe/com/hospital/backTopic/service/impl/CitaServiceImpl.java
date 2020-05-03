@@ -55,7 +55,7 @@ public class CitaServiceImpl implements CitaService {
 	}
 
 	@Override
-	public Optional<Cita> citaIdeal(Date fecha, String distrito, String especialidad, String seguro) throws Exception {
+	public List<Cita> citaIdeal(Date fecha, String distrito, String especialidad, String seguro) throws Exception {
 		return citaRepository.citaIdeal(fecha, distrito, especialidad, seguro);
 	}
 

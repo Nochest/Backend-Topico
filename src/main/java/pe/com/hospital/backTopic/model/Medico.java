@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,6 +33,10 @@ public class Medico {
 	@OneToMany(mappedBy = "medico", fetch = FetchType.LAZY)
 	private List<MedicoEspecialidad> medicoEspecialidades;
 
+	@Lob
+	@Column(name = "imagen")
+	private byte[] img;
+	
 	public Integer getId() {
 		return id;
 	}

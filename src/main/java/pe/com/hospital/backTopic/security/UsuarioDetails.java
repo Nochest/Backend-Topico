@@ -12,7 +12,10 @@ import pe.com.hospital.backTopic.model.Usuario;
 
 public class UsuarioDetails implements UserDetails {
 	
-	private static final long SerialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
 	
 	public UsuarioDetails(Usuario usuario) {
