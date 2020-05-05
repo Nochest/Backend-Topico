@@ -59,6 +59,11 @@ public class CitaServiceImpl implements CitaService {
 		return citaRepository.citaIdeal(fecha, distrito, especialidad, seguro);
 	}
 
+	@Override
+	public List<Cita> findByUSerId(int id) throws Exception {
+		return citaRepository.findByUSerId(id);
+	}
+
 	/*@Override
 	public List<Cita> findByLugarSeguroEspecialidadHora(String nombreSeguro, String nombreEspecialidad,
 			String nombreLugar, Date hora) throws Exception {

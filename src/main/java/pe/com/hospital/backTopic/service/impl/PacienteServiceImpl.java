@@ -48,4 +48,9 @@ public class PacienteServiceImpl implements PacienteService {
 		pacienteRepository.deleteAll();
 	}
 
+	@Override
+	public List<Paciente> findByUserId(int id) throws Exception {
+		return pacienteRepository.findByUserId(id);
+	}
+
 }

@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import pe.com.hospital.backTopic.model.Cita;
 import pe.com.hospital.backTopic.model.Paciente;
 import pe.com.hospital.backTopic.model.Usuario;
+import pe.com.hospital.backTopic.service.CitaService;
 import pe.com.hospital.backTopic.service.PacienteService;
 import pe.com.hospital.backTopic.service.UsuarioService;
 
@@ -33,6 +35,9 @@ public class UsuarioRestController {
 	
 	@Autowired
 	private PacienteService pacienteService;
+	
+	@Autowired
+	private CitaService citaService;
 	
 	@GetMapping
 	public ResponseEntity<List<Usuario>> Listar() {
@@ -61,7 +66,37 @@ public class UsuarioRestController {
 			return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
 		}
 	}
-
+	@ApiOperation(value = "EndPoint que permite obtener una lista de pacientes asociada al usuario por su ID")
+	@GetMapping(path = "/{id}/pacientes", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Paciente>> getPacientesXUsuario(@RequestParam(value = "id") int id) {
+		try {
+			Optional<Usuario> user = usuarioService.findById(id);
+			if(user.isPresent()) {
+				List<Paciente> pacientes = pacienteService.findByUserId(id);
+				return new ResponseEntity<List<Paciente>>(pacientes, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<List<Paciente>>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<List<Paciente>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	@ApiOperation(value = "EndPoint que permite obtener una lista de citas asociada al usuario por su ID")
+	@GetMapping(path = "/{id}/citas", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Cita>> getCitasxUsuario(@RequestParam(value = "id") int id){
+		try {
+			Optional<Usuario> user = usuarioService.findById(id);
+			if(user.isPresent()) {
+				List<Cita> citas = citaService.findByUSerId(id);
+				return new ResponseEntity<List<Cita>>(citas, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<List<Cita>>(HttpStatus.NOT_FOUND);	
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<List<Cita>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@ApiOperation(value = "EndPoint que permite obtener correo y password")
 	@GetMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> login(@RequestParam(value = "correo") String correo, @RequestParam(value = "password") String password) {
@@ -76,7 +111,21 @@ public class UsuarioRestController {
 			return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
 		}
 	}
-
+	
+	@ApiOperation(value = "EndPoint que permite obtener un usuario por su correo")
+	@GetMapping(path = "/correo", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Usuario> findByCorreo(@RequestParam(value = "correo") String correo){
+		try {
+			Optional<Usuario> user = usuarioService.findByUserAccount(correo);
+			if(user.isPresent()) {
+				return new ResponseEntity<Usuario>(user.get(), HttpStatus.OK);
+			}else {
+				return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
+		}
+	}
 	
 	@ApiOperation(value = "EndPoint que permite grabar un usuario")
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

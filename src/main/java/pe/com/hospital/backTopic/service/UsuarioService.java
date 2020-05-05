@@ -6,4 +6,6 @@ import pe.com.hospital.backTopic.model.Usuario;
 
 public interface UsuarioService extends CrudService<Usuario, Integer> {
 	Optional<Usuario> login(String correo, String password) throws Exception;
+	Optional<Usuario>findByUserAccount(String correo) throws Exception;
+
 }

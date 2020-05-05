@@ -46,7 +46,8 @@ public class Paciente {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")	
 	@Column(name = "fecha_nacimiento")
 	private Date fechaNac;
-	@JsonIgnore
+	@Column(name = "poseeCuenta", columnDefinition = "boolean", nullable = false)
+	private boolean accountManagment;
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;

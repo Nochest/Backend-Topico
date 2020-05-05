@@ -53,4 +53,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return usuarioRepository.login(correo, password);
 	}
 
+	@Override
+	public Optional<Usuario> findByUserAccount(String correo) throws Exception {
+		return usuarioRepository.findByUserAccount(correo);
+	}
+
 }
