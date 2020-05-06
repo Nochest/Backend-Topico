@@ -151,5 +151,14 @@ public class Paciente {
 	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
+
+	public boolean isAccountManagment() {
+		return accountManagment;
+	}
+
+	public void setAccountManagment(boolean accountManagment) {
+		this.accountManagment = accountManagment;
+	}
+	
 	
 }
