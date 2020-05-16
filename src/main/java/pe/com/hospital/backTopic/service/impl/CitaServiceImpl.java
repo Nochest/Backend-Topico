@@ -64,10 +64,4 @@ public class CitaServiceImpl implements CitaService {
 		return citaRepository.findByUSerId(id);
 	}
 
-	/*@Override
-	public List<Cita> findByLugarSeguroEspecialidadHora(String nombreSeguro, String nombreEspecialidad,
-			String nombreLugar, Date hora) throws Exception {
-		return citaRepository.findByLugarSeguroEspecialidadHora(nombreSeguro, nombreEspecialidad, nombreLugar, hora);
-	}*/
-
 }

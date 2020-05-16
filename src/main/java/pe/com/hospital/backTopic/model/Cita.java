@@ -50,6 +50,14 @@ public class Cita {
 		this.id = id;
 	}
 
+	public boolean isReserva() {
+		return reserva;
+	}
+
+	public void setReserva(boolean reserva) {
+		this.reserva = reserva;
+	}
+
 	public float getPago() {
 		return pago;
 	}

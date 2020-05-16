@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import pe.com.hospital.backTopic.model.Cita;
+import pe.com.hospital.backTopic.repository.CitaRepository;
 import pe.com.hospital.backTopic.service.CitaService;
 
 
@@ -91,7 +92,8 @@ public class CitaRestController {
 			return new ResponseEntity<Cita>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
+	
+	
 	@DeleteMapping(path = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
 		try {
@@ -120,33 +122,7 @@ public class CitaRestController {
 		}
 		return null;
 	}
-	/*
-	@ApiOperation(value = "EndPoint que permite obtener citas disponibles por parametros")
-	@GetMapping(path = "/CITAWITHPARAMS", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Cita>> getCitaWithParams(
-			@RequestParam(value = "nombreSeguro") String nombreSeguro, 
-			@RequestParam(value = "nombreEspecialidad") String nombreEspecialidad,
-			@RequestParam(value = "nombreLugar") String nombreLugar,
-			@RequestParam(value = "hora") Date hora){
-		ResponseEntity<List<Cita>> response;
-		try {  
-			if(ubicacionService.getClinica().getNombre() == nombreLugar &&
-				citaP.getFecha() == hora && 
-				especialidad.getNombre() == nombreEspecialidad && 
-				seguro.getNombre() == nombreSeguro) {
-				List<Cita> citasHabiles = citaService.findByLugarSeguroEspecialidadHora(nombreSeguro, nombreEspecialidad, nombreLugar, hora);
-				response = new ResponseEntity<List<Cita>>(citasHabiles, HttpStatus.OK);
-				return response;
-			}
-			else {
-				return new ResponseEntity<List<Cita>>(HttpStatus.NOT_FOUND);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return null;
-	}*/
+	
 	@ApiOperation(value = "EndPoint que permite obtener una cita por su fecha")
 	@GetMapping(path = "/citaIdeal", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Cita>> CitaIdeal(@RequestParam(value = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, 
