@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -56,7 +57,22 @@ public class PacienteRestController {
 			return new ResponseEntity<Paciente>(HttpStatus.BAD_REQUEST);
 		}
 	}
-
+	public ResponseEntity<Paciente> getPacienteCuenta(@PathVariable("id") int id, @RequestParam(value = "poseeCuenta") boolean poseeCuenta){
+		try {
+			Optional<Paciente> paciente = pacienteService.findById(id);
+			if(paciente.isPresent()) {
+				if(paciente.get().isAccountManagment() == poseeCuenta) {
+					return new ResponseEntity<Paciente>(paciente.get(), HttpStatus.OK);
+				}else {
+					return new ResponseEntity<Paciente>(HttpStatus.NOT_FOUND);
+				}
+			}else {
+				return new ResponseEntity<Paciente>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<Paciente>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	@ApiOperation(value = "EndPoint que permite grabar un paciente")
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Paciente> nuevo(@RequestBody Paciente paciente) {
