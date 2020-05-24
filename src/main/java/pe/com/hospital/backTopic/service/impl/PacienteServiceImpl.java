@@ -54,8 +54,8 @@ public class PacienteServiceImpl implements PacienteService {
 	}
 
 	@Override
-	public Optional<Paciente> findInfoPacienteUser(int id, boolean poseeCuenta) throws Exception {
-		return pacienteRepository.findInfoPacienteUser(id, poseeCuenta);
+	public Optional<Paciente> findInfoPacienteUser(int id) throws Exception {
+		return pacienteRepository.findInfoPacienteUser(id);
 	}
 
 }

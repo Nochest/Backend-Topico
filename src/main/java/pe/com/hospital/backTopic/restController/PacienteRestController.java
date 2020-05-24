@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -57,11 +56,13 @@ public class PacienteRestController {
 			return new ResponseEntity<Paciente>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	public ResponseEntity<Paciente> getPacienteCuenta(@PathVariable("id") int id, @RequestParam(value = "poseeCuenta") boolean poseeCuenta){
+	@ApiOperation(value = "EndPoint que permite encontrar al paicente poseedor de la cuenta")
+	@GetMapping(path = "/{id}/poseedor", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Paciente> getPoseedor(@PathVariable("id") int id){
 		try {
 			Optional<Paciente> paciente = pacienteService.findById(id);
 			if(paciente.isPresent()) {
-				if(paciente.get().isAccountManagment() == poseeCuenta) {
+				if(paciente.get().isAccountManagment() == true) {
 					return new ResponseEntity<Paciente>(paciente.get(), HttpStatus.OK);
 				}else {
 					return new ResponseEntity<Paciente>(HttpStatus.NOT_FOUND);
