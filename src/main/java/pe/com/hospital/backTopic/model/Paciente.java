@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,10 +27,13 @@ public class Paciente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Pattern(regexp = "^[a-zA-z]*")
 	@Column(name = "nombre", length = 20, nullable = false)
 	private String nombre;
+	@Pattern(regexp = "^[a-zA-z]*")
 	@Column(name = "apellidoPaterno", length = 30, nullable = false)
 	private String apellidoPaterno;
+	@Pattern(regexp = "^[a-zA-z]*")
 	@Column(name = "apellidoMaterno", length = 30, nullable = false)
 	private String apellidoMaterno;
 	@Column(name = "dni", length = 8, nullable = false)

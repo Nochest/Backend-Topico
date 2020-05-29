@@ -18,4 +18,5 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer> {
 	List<Medico> fetchByApellidoMaterno(String apellidoMaterno) throws Exception;
 	@Query("Select me from Medico me where me.nombre = :nombre and me.apellidoPaterno = :apellidoPaterno and me.apellidoMaterno = :apellidoMaterno")
 	List<Medico> fetchByNombreCompleto(String nombre, String apellidoPaterno, String apellidoMaterno) throws Exception;
+	
 }

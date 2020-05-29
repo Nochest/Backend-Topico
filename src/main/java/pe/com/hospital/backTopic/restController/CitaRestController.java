@@ -22,8 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import pe.com.hospital.backTopic.model.Cita;
-import pe.com.hospital.backTopic.repository.CitaRepository;
+import pe.com.hospital.backTopic.model.Especialidad;
+import pe.com.hospital.backTopic.model.Medico;
 import pe.com.hospital.backTopic.service.CitaService;
+import pe.com.hospital.backTopic.service.EspecialidadService;
+import pe.com.hospital.backTopic.service.MedicoService;
 
 
 @Api(value = "Endpoints de Cita")
@@ -32,6 +35,10 @@ import pe.com.hospital.backTopic.service.CitaService;
 public class CitaRestController {
 	@Autowired
 	private CitaService citaService;
+	@Autowired
+	private EspecialidadService especialidadService;
+	@Autowired
+	private MedicoService medicoService;
 	
 	@ApiOperation(value = "EndPoint que permite listar las citas")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,7 +69,7 @@ public class CitaRestController {
 		}
 	}
 
-	@ApiOperation(value = "EndPoint que permite grabar una especialidad")
+	@ApiOperation(value = "EndPoint que permite grabar una cita")
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Cita> nuevo(@RequestBody Cita cita) {
 		try {
@@ -135,6 +142,24 @@ public class CitaRestController {
 		} catch (Exception e) {
 			return new ResponseEntity<List<Cita>>(HttpStatus.BAD_REQUEST);
 		}	
+	}
+	
+	@ApiOperation(value = "EndPoint que permite obtener la especialidad de una cita")
+	@GetMapping(path = "/{id}/especialidad", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Especialidad> getEspecialidad(@PathVariable("id") int id) {
+		try {
+			Optional<Cita> cita = citaService.findById(id);
+			if (cita.isPresent()) {
+				Optional<Medico> medico = medico.findByCitaMedico(medico, id);
+				if(medico.isPresent()) {
+					
+				}
+			} else {
+				return new ResponseEntity<Especialidad>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<Especialidad>(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 }

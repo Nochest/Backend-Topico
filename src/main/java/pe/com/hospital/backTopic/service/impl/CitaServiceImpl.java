@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.com.hospital.backTopic.model.Cita;
+import pe.com.hospital.backTopic.model.Medico;
 import pe.com.hospital.backTopic.repository.CitaRepository;
 import pe.com.hospital.backTopic.service.CitaService;
 
@@ -62,6 +63,11 @@ public class CitaServiceImpl implements CitaService {
 	@Override
 	public List<Cita> findByUSerId(int id) throws Exception {
 		return citaRepository.findByUSerId(id);
+	}
+
+	@Override
+	public Optional<Medico> findByCitaMedico(Medico medico, int id) throws Exception {
+		return citaRepository.findByCitaMedico(medico, id);
 	}
 
 }

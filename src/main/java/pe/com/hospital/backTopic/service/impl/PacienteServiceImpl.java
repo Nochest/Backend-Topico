@@ -58,4 +58,9 @@ public class PacienteServiceImpl implements PacienteService {
 		return pacienteRepository.findInfoPacienteUser(id);
 	}
 
+	@Override
+	public Optional<Paciente> findPoseedor(boolean poseedor) throws Exception {
+		return pacienteRepository.findPoseedor(poseedor);
+	}
+
 }

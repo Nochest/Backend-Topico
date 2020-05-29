@@ -81,6 +81,30 @@ public class UsuarioRestController {
 			return new ResponseEntity<List<Paciente>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	@ApiOperation(value = "EndPoint que permite obtener al paciente poseedor de la cuenta")
+	@GetMapping(path = "/{id}/pacientes/poseedor", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Paciente> getPoseedor(@RequestParam(value = "id") int id) {
+		try {
+			Optional<Usuario> user = usuarioService.findById(id);
+			if(user.isPresent()) {
+				List<Paciente> pacientes = pacienteService.findByUserId(id);
+				for (Paciente paciente : pacientes) {
+					if(paciente.isAccountManagment()) {
+						Optional<Paciente> pac = pacientes.stream().findFirst();
+						return new ResponseEntity<Paciente>(pac.get(), HttpStatus.OK);
+					}else {
+						return new ResponseEntity<Paciente>(HttpStatus.NOT_EXTENDED);
+					}
+				}
+			}else {
+				return new ResponseEntity<Paciente>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<Paciente>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return null;
+
+	}
 	@ApiOperation(value = "EndPoint que permite obtener una lista de citas asociada al usuario por su ID")
 	@GetMapping(path = "/{id}/citas", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Cita>> getCitasxUsuario(@RequestParam(value = "id") int id){

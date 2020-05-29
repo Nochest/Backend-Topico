@@ -17,4 +17,7 @@ public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
 
 	@Query("select pa from Paciente pa where pa.usuario.id = :id ")
 	Optional<Paciente> findInfoPacienteUser(int id) throws Exception;
+	
+	@Query("select pa from Paciente pa where pa.accountManagment = :poseedor")
+	Optional<Paciente> findPoseedor(boolean poseedor) throws Exception;
 }

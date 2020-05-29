@@ -2,12 +2,14 @@ package pe.com.hospital.backTopic.repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import pe.com.hospital.backTopic.model.Cita;
+import pe.com.hospital.backTopic.model.Medico;
 
 @Repository
 public interface CitaRepository extends JpaRepository<Cita, Integer> {
@@ -21,4 +23,7 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
 	
 	@Query("select ci from Cita ci where ci.paciente.usuario.id = :id")
 	List<Cita> findByUSerId(int id) throws Exception;
+	
+	@Query("select me from Medico me, Cita ci where ci.medico = :medico and ci.id = :id")
+	Optional<Medico> findByCitaMedico(Medico medico, int id) throws Exception;
 }

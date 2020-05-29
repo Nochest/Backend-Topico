@@ -28,6 +28,7 @@ public class PacienteRestController {
 	@Autowired
 	private PacienteService pacienteService;
 
+	
 	@ApiOperation(value = "EndPoint que permite listar los pacientes")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Paciente>> Listar() {
@@ -54,24 +55,6 @@ public class PacienteRestController {
 			}
 		} catch (Exception e) {
 			return new ResponseEntity<Paciente>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	@ApiOperation(value = "EndPoint que permite encontrar al paicente poseedor de la cuenta")
-	@GetMapping(path = "/{id}/poseedor", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Paciente> getPoseedor(@PathVariable("id") int id){
-		try {
-			Optional<Paciente> paciente = pacienteService.findById(id);
-			if(paciente.isPresent()) {
-				if(paciente.get().isAccountManagment() == true) {
-					return new ResponseEntity<Paciente>(paciente.get(), HttpStatus.OK);
-				}else {
-					return new ResponseEntity<Paciente>(HttpStatus.NOT_FOUND);
-				}
-			}else {
-				return new ResponseEntity<Paciente>(HttpStatus.NOT_FOUND);
-			}
-		} catch (Exception e) {
-			return new ResponseEntity<Paciente>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	@ApiOperation(value = "EndPoint que permite grabar un paciente")

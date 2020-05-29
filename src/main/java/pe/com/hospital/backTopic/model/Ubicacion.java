@@ -13,6 +13,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,6 +23,7 @@ public class Ubicacion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Pattern(regexp = "^[a-zA-z]*")
 	@Column(name = "distrito", length = 30, nullable = false)
 	private String distrito;
 	@Column(name = "longitud", length = 30, nullable = false)

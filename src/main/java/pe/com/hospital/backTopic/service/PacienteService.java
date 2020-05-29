@@ -8,5 +8,6 @@ import pe.com.hospital.backTopic.model.Paciente;
 public interface PacienteService extends CrudService<Paciente, Integer> {
 	List<Paciente> findByUserId( int id) throws Exception;
 	Optional<Paciente> findInfoPacienteUser(int id) throws Exception;
-	
+	Optional<Paciente> findPoseedor(boolean poseedor) throws Exception;
+
 }
