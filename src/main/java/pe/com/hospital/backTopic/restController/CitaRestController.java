@@ -144,7 +144,7 @@ public class CitaRestController {
 		}	
 	}
 	
-	@ApiOperation(value = "EndPoint que permite obtener la especialidad de una cita")
+	/*@ApiOperation(value = "EndPoint que permite obtener la especialidad de una cita")
 	@GetMapping(path = "/{id}/especialidad", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Especialidad> getEspecialidad(@PathVariable("id") int id) {
 		try {
@@ -160,6 +160,6 @@ public class CitaRestController {
 		} catch (Exception e) {
 			return new ResponseEntity<Especialidad>(HttpStatus.BAD_REQUEST);
 		}
-	}
+	}*/
 
 }
