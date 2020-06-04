@@ -27,13 +27,13 @@ public class Paciente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Pattern(regexp = "^[a-zA-z]*")
+	@Pattern(regexp  = "^[a-zA-ZÑÁÉÍÓÚñáéíóú]*")
 	@Column(name = "nombre", length = 20, nullable = false)
 	private String nombre;
-	@Pattern(regexp = "^[a-zA-z]*")
+	@Pattern(regexp = "^[a-zA-ZÑÁÉÍÓÚñáéíóú]*")
 	@Column(name = "apellidoPaterno", length = 30, nullable = false)
 	private String apellidoPaterno;
-	@Pattern(regexp = "^[a-zA-z]*")
+	@Pattern(regexp = "^[a-zA-ZÑÁÉÍÓÚñáéíóú]*")
 	@Column(name = "apellidoMaterno", length = 30, nullable = false)
 	private String apellidoMaterno;
 	@Column(name = "dni", length = 8, nullable = false)
